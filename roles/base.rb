@@ -10,5 +10,6 @@ name "base"
            "recipe[jenkins::proxy_apache2]",
            "recipe[emacs]",
            "recipe[git]",
+           "recipe[maven]",
   )
 
