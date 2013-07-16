@@ -31,6 +31,7 @@ ark "maven" do
   home_dir node['maven']['m2_home']
   version node['maven'][mvn_version]['version']
   append_env_path true
+  has_binaries [node['maven']['m2_home']/bin/mvn]
 end
 
 template "/etc/mavenrc" do
