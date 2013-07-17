@@ -2,6 +2,7 @@ name "base"
   description "Base role applied to all nodes (build server in this example)"
   run_list(
            "recipe[apt]",
+           "recipe[java]",
            "recipe[aliases]",
            "recipe[ntp]",
            "recipe[apache2]",
