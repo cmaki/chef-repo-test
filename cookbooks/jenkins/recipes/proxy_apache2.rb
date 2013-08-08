@@ -57,12 +57,13 @@ template "#{node[:apache][:dir]}/sites-available/jenkins.conf" do
   if File.exists?("#{node[:apache][:dir]}/sites-enabled/jenkins.conf")
     # This tells apache to restart if there is a site-enabled file called jenkins.conf
     notifies  :restart, 'service[apache2]'
-  else
-    # there is no file in the sites-enabled directory, create a link to sites-available
-    if File.symlink("#{node[:apache][:dir]}/sites-available/jenkins.conf", "#{node[:apache][:dir]}/sites-enabled/jenkins.conf")
-      # if the symlink worked, restart apache
-      notifies  :restart, 'service[apache2]'
-    end
+  # This needs to be fixed, but want to get the node converged first cm 8/8/13
+  # else
+  #   # there is no file in the sites-enabled directory, create a link to sites-available
+  #   if File.symlink("#{node[:apache][:dir]}/sites-available/jenkins.conf", "#{node[:apache][:dir]}/sites-enabled/jenkins.conf")
+  #     # if the symlink worked, restart apache
+  #     notifies  :restart, 'service[apache2]'
+  #   end
   end
 end
 
