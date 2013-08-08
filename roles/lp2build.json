@@ -2,9 +2,9 @@
   "name": "lp2build",
   "chef_type": "role",
   "json_class": "Chef::Role",
-  "description": "The base role for all LP2 build nodes"
+  "description": "The base role for all LP2 build nodes",
   "run_list": [
-               "recipe[java]",
+               "recipe[java]"
               ],
   "env_run_lists" : {
     "production" : [],
@@ -14,7 +14,7 @@
             "recipe[emacs]",
             "recipe[git]",
             "recipe[ark]",
-            "recipe[maven]",
+            "recipe[maven]"
            ],
     "test": [
              "role[base]",
