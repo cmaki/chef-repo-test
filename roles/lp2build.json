@@ -9,7 +9,8 @@
 	"recipe[git]",
 	"recipe[ark]",
 	"recipe[maven]", 
-	"recipe[java]"
+	"recipe[java]", 
+	"recipe[lxmx_hostname]"
 	
     ],
     "env_run_lists" : {
@@ -30,10 +31,13 @@
     "override_attributes": {
 	"apache2": {
 	    "max_children": "50"
-	}
+	},
 	"maven": {
 	    "setup_bin": "true", 
 	    "repository_root": "/var/lib/jenkins"
+	},
+	"lxmx_hostname": {
+	    "hostname": "lp2build"
 	}
     }
 }
