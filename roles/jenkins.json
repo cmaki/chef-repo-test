@@ -10,5 +10,12 @@
         "recipe[git]",
         "recipe[ark]",
         "recipe[maven]"
-    ]
+    ],
+    "override_attributes": {
+	"maven": {
+	    "repository_root": "/var/lib/jenkins",
+	    "m2_home": "/var/lib/jenkins"
+	}
+    }
+
 }
