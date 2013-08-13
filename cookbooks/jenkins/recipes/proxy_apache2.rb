@@ -58,10 +58,13 @@ template "#{node[:apache][:dir]}/sites-available/jenkins.conf" do
     # This tells apache to restart if there is a site-enabled file called jenkins.conf
     notifies  :restart, 'service[apache2]'
   else
-    # there is no file in the sites-enabled directory, create a link to sites-available
-    if File.symlink("#{node[:apache][:dir]}/sites-available/jenkins.conf", "#{node[:apache][:dir]}/sites-enabled/jenkins.conf")
-      # if the symlink worked, restart apache
-      notifies  :restart, 'service[apache2]'
+    # check to see if the jenkins.conf file even exists yet...
+    if File.exists?("#{node[:apache][:dir]}/sites-available/jenkins.conf")
+      # there is no file in the sites-enabled directory, create a link to sites-available
+      if File.symlink("#{node[:apache][:dir]}/sites-available/jenkins.conf", "#{node[:apache][:dir]}/sites-enabled/jenkins.conf")
+        # if the symlink worked, restart apache
+        notifies  :restart, 'service[apache2]'
+      end
     end
   end
 end

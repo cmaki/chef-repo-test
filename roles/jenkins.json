@@ -9,12 +9,16 @@
         "recipe[git]",
         "recipe[ark]",
         "recipe[maven]",
-        "recipe[jenkins::proxy_apache2]"
+        "recipe[jenkins::proxy_apache2]",
+	"recipe[hostname]"
     ],
     "override_attributes": {
 	"maven": {
 	    "repository_root": "/var/lib/jenkins",
 	    "m2_home": "/var/lib/jenkins"
+	},
+	"hostname": {
+	    "set_fqdn": "jenkins.vm"
 	}
     }
 
