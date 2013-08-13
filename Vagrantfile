@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
     jenkins.vm.network :forwarded_port, guest: 80, host: 9000
+    jenkins.vm.network :forwarded_port, guest: 8080, host: 9090
+    jenkins.vm.network :forwarded_port, guest: 22, host: 9022
     
   end
 
@@ -30,9 +32,43 @@ Vagrant.configure("2") do |config|
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
     lp2build.vm.network :forwarded_port, guest: 80, host: 9100
-    lp2build.vm.network :forwarded_port, guest: 80, host: 9190
+    lp2build.vm.network :forwarded_port, guest: 8080, host: 9190
+    lp2build.vm.network :forwarded_port, guest: 22, host: 9122
     
   end
+
+  # This is a test box, I was trying to see if I could use a file insread of a URL for the node.
+  config.vm.define :lp2webservice do |lp2webservice|
+    # Every Vagrant virtual environment requires a box to build off of.
+    lp2webservice.vm.box = "lp2webservice"
+    
+    # The url from where the 'config.vm.box' box will be fetched if it
+    # doesn't already exist on the user's system.
+    lp2webservice.vm.box_url = "file:///Volumes/LaCie/Downloads/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
+
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine. In the example below,
+    # accessing "localhost:8080" will access port 80 on the guest machine.
+    lp2webservice.vm.network :forwarded_port, guest: 80, host: 9200
+    lp2webservice.vm.network :forwarded_port, guest: 80, host: 9290
+  end
+
+  config.vm.define :"opscode-ubuntu-1204" do |opscode|
+    # Every Vagrant virtual environment requires a box to build off of.
+    opscode.vm.box = "opscode-ubuntu-1204"
+
+    # The url from where the 'config.vm.box' box will be fetched if it
+    # doesn't already exist on the user's system.
+    opscode.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
+
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine. In the example below,
+    # accessing "localhost:8080" will access port 80 on the guest machine.
+    opscode.vm.network :forwarded_port, guest: 80, host: 9300
+    opscode.vm.network :forwarded_port, guest: 8080, host: 9390
+    opscode.vm.network :forwarded_port, guest: 22, host: 9322
+  end
+
 
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,

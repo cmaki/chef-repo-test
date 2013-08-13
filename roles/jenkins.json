@@ -6,10 +6,10 @@
         "recipe[java]",
         "recipe[apache2]",
         "recipe[jenkins]",
-        "recipe[jenkins::proxy_apache2]",
         "recipe[git]",
         "recipe[ark]",
-        "recipe[maven]"
+        "recipe[maven]",
+        "recipe[jenkins::proxy_apache2]"
     ],
     "override_attributes": {
 	"maven": {
