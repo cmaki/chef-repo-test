@@ -15,7 +15,7 @@
     "override_attributes": {
 	"maven": {
 	    "repository_root": "/var/lib/jenkins",
-	    "m2_home": "/var/lib/jenkins"
+	    "version": "3"
 	},
 	"hostname": {
 	    "set_fqdn": "jenkins.vm"
