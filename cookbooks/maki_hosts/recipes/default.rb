@@ -12,7 +12,7 @@ template "/etc/hosts" do
   action :create
 end
 
-template "/etc/hostname:" do
+template "/etc/hostname" do
   source "maki_hostname.txt.erb"
   variables :hostname => node['hostname']
   action :create

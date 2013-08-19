@@ -1,26 +1,14 @@
 {
-    "name": "jenkins",
-    "description": "Role for jenkins build server", 
+    "name": "lp2webserver",
+    "description": "Role for lp2webserver nodes", 
     "run_list": [
 	"role[base]",
         "recipe[java]",
         "recipe[apache2]",
-        "recipe[jenkins]",
-        "recipe[git]",
         "recipe[ark]",
-        "recipe[maven]",
-        "recipe[jenkins::proxy_apache2]",
-	"recipe[hostname]",
 	"recipe[postgresql::server]"
     ],
     "override_attributes": {
-	"maven": {
-	    "repository_root": "/var/lib/jenkins",
-	    "version": "3"
-	},
-	"hostname": {
-	    "set_fqdn": "jenkins.vm"
-	},
 	"postgresql": {
 	    "password": {
 		"postgres": "maki"
