@@ -38,19 +38,19 @@ Vagrant.configure("2") do |config|
   end
 
   # This is a test box, I was trying to see if I could use a file insread of a URL for the node.
-  config.vm.define :lp2webservice do |lp2webservice|
+  config.vm.define :lp2webserver do |lp2webserver|
     # Every Vagrant virtual environment requires a box to build off of.
-    lp2webservice.vm.box = "lp2webservice"
+    lp2webserver.vm.box = "lp2webserver"
     
     # The url from where the 'config.vm.box' box will be fetched if it
     # doesn't already exist on the user's system.
-    lp2webservice.vm.box_url = "file:///Volumes/LaCie/Downloads/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
+    lp2webserver.vm.box_url = "file:///Volumes/LaCie/Downloads/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
 
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
-    lp2webservice.vm.network :forwarded_port, guest: 80, host: 9200
-    lp2webservice.vm.network :forwarded_port, guest: 80, host: 9290
+    lp2webserver.vm.network :forwarded_port, guest: 80, host: 9200
+    lp2webserver.vm.network :forwarded_port, guest: 80, host: 9290
   end
 
   config.vm.define :"opscode-ubuntu-1204" do |opscode|

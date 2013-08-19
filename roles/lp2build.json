@@ -6,12 +6,13 @@
     "run_list": [
 	"role[base]",
 	"recipe[emacs]",
-	"recipe[git]",
 	"recipe[ark]",
 	"recipe[maven]", 
+        "recipe[apache2]",
 	"recipe[java::openjdk]", 
-	"recipe[lxmx_hostname]"
-	
+        "recipe[ark]",
+	"recipe[hostname]",
+	"recipe[postgresql::server]"
     ],
     "env_run_lists" : {
 	"production" : [],
