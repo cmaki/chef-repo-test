@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
     lp2webserver.vm.network :forwarded_port, guest: 80, host: 9200
-    lp2webserver.vm.network :forwarded_port, guest: 80, host: 9290
+    lp2webserver.vm.network :forwarded_port, guest: 8080, host: 9290
     lp2webserver.vm.network :forwarded_port, guest: 22, host: 9222
 
   end

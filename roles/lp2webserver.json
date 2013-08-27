@@ -5,7 +5,7 @@
 	"role[base]",
         "recipe[java]",
         "recipe[apache2]",
-        "recipe[ark]",
+        "recipe[tomcat]",
 	"recipe[postgresql::server]"
     ],
     "override_attributes": {
@@ -13,6 +13,10 @@
 	    "password": {
 		"postgres": "maki"
 	    }
+	},
+	"tomcat" : {
+	    "base_version": "7",
+	    "java_options":  "${JAVA_OPTS} -Xms512m -Xmx2048m -XX:MaxPermSize=512m -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -Dspring.profiles.active=development -Dssm.cache.disable=true -Dusername=chrismaki -Dpassword=password -Duser.timezone=America/New_York -Dhibernate.show_sql=true"
 	}
     }
 
