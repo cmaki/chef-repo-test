@@ -2,10 +2,15 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  # config.hostmanager.enabled = true
+  # config.hostmanager.manage_host = true
+  # config.hostmanager.ignore_private_ip = false
+  # config.hostmanager.include_offline = true
 
   config.vm.define :jenkins do |jenkins|
     # Every Vagrant virtual environment requires a box to build off of.
     jenkins.vm.box = "jenkins"
+    jenkins.vm.hostname = "jenkins.vm"
 
     # The url from where the 'config.vm.box' box will be fetched if it
     # doesn't already exist on the user's system.
@@ -14,10 +19,17 @@ Vagrant.configure("2") do |config|
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
+    jenkins.vm.network :private_network, ip: "10.10.10.10"
     jenkins.vm.network :forwarded_port, guest: 80, host: 9000
     jenkins.vm.network :forwarded_port, guest: 8080, host: 9090
     jenkins.vm.network :forwarded_port, guest: 22, host: 9022
-    
+
+    jenkins.vm.provision :chef_client do |chef|
+      chef.chef_server_url = "https://api.opscode.com/organizations/oe-test"
+      chef.validation_key_path = "./.chef/oe-test-validator.pem"
+      chef.validation_client_name = "oe-test-validator"
+      chef.add_role "jenkins"
+    end
   end
 
   config.vm.define :lp2build do |lp2build|

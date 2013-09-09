@@ -34,6 +34,7 @@ tomcat_pkgs = value_for_platform(
 
 tomcat_pkgs.each do |pkg|
   package pkg do
+    puts "about to install package #{pkg}"
     action :install
   end
 end

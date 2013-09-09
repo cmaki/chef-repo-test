@@ -19,7 +19,7 @@
 	    "version": "3"
 	},
 	"hostname": {
-	    "set_fqdn": "jenkins.vm"
+	    "fqdn": "jenkins.vm"
 	},
 	"postgresql": {
 	    "password": {
