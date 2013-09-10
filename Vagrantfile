@@ -83,6 +83,30 @@ Vagrant.configure("2") do |config|
     opscode.vm.network :forwarded_port, guest: 22, host: 9322
   end
 
+  config.vm.define :lp2sfdc do |node|
+    # Every Vagrant virtual environment requires a box to build off of.
+    node.vm.box = "lp2sfdc"
+    node.vm.hostname = "lp2sfdc.vm"
+
+    # The url from where the 'config.vm.box' box will be fetched if it
+    # doesn't already exist on the user's system.
+    node.vm.box_url = "file:///Volumes/LaCie/Downloads/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
+
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine. In the example below,
+    # accessing "localhost:8080" will access port 80 on the guest machine.
+    node.vm.network :private_network, ip: "10.0.0.94"
+    node.vm.network :forwarded_port, guest: 80, host: 9400
+    node.vm.network :forwarded_port, guest: 8080, host: 9490
+    node.vm.network :forwarded_port, guest: 22, host: 9422
+
+    node.vm.provision :chef_client do |chef|
+      chef.chef_server_url = "https://api.opscode.com/organizations/oe-test"
+      chef.validation_key_path = "./.chef/oe-test-validator.pem"
+      chef.validation_client_name = "oe-test-validator"
+      chef.add_role "lp2sfdc"
+    end
+  end
 
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,

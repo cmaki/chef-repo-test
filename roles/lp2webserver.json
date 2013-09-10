@@ -6,7 +6,7 @@
         "recipe[java]",
         "recipe[apache2]",
         "recipe[tomcat]",
-	"recipe[postgresql::server]"
+	"recipe[postgresql::server]",
     ],
     "override_attributes": {
 	"postgresql": {
