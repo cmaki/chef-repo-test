@@ -100,12 +100,12 @@ Vagrant.configure("2") do |config|
     node.vm.network :forwarded_port, guest: 8080, host: 9490
     node.vm.network :forwarded_port, guest: 22, host: 9422
 
-    node.vm.provision :chef_client do |chef|
-      chef.chef_server_url = "https://api.opscode.com/organizations/oe-test"
-      chef.validation_key_path = "./.chef/oe-test-validator.pem"
-      chef.validation_client_name = "oe-test-validator"
-      chef.add_role "lp2sfdc"
-    end
+    # node.vm.provision :chef_client do |chef|
+    #   chef.chef_server_url = "https://api.opscode.com/organizations/oe-test"
+    #   chef.validation_key_path = "./.chef/oe-test-validator.pem"
+    #   chef.validation_client_name = "oe-test-validator"
+    #   chef.add_role "lp2sfdc"
+    # end
   end
 
   # All Vagrant configuration is done here. The most common configuration
