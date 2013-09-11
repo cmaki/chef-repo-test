@@ -1,0 +1,40 @@
+{
+    "name": "lp2sfdc",
+    "description": "Role for lp2webserver nodes", 
+    "run_list": [
+	"role[base]",
+        "recipe[java]",
+        "recipe[apache2]",
+        "recipe[tomcat]",
+	"recipe[postgresql::server]",
+	"recipe[postgresql::client]",
+	"recipe[activemq]"
+    ],
+    "override_attributes": {
+	"postgresql": {
+	    "version":"9.1",
+	    "start":"auto",
+	    "users": [ {
+		"username":"chrismaki",
+		"password":"password",
+		"superuser":true,
+		"createdb":false,
+		"login":true
+	    } ],
+	    "databases": [ {
+		"name":"lp20",
+		"owner":"chrismaki"
+	    } ]
+	},
+	"tomcat" : {
+	    "base_version": "7",
+	    "java_options": "${JAVA_OPTS} -Xms512m -Xmx2048m -XX:MaxPermSize=512m -Dspring.profiles.active=development -Xdebug -Dssm.cache.disable=true -Dusername=chrismaki -Dpassword=password -Duser.timezone=America/New_York -Dhibernate.show_sql=true"
+	},
+	"java": {
+	    "jdk_version": "7"
+	    "remove_deprecated_packages": "true"
+	}
+
+    }
+
+}
