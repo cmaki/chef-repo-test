@@ -12,6 +12,7 @@
         "recipe[jenkins::proxy_apache2]",
 	"recipe[hostname]",
 	"recipe[postgresql::server]"
+	"recipe[gradle]"
     ],
     "override_attributes": {
 	"maven": {
