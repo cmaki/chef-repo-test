@@ -21,6 +21,7 @@
 #
 
 use_inline_resources if defined?(use_inline_resources)
+include ::Opscode::Ark::ProviderHelpers
 
 # From resources/default.rb
 # :install, :put, :dump, :cherry_pick, :install_with_make, :configure, :setup_py_build, :setup_py_install, :setup_py
@@ -49,8 +50,9 @@ action :install do
   end
 
   # unpack based on file extension
+  _unpack_command = unpack_command
   execute "unpack #{new_resource.release_file}" do
-    command unpack_command
+    command _unpack_command
     cwd new_resource.path
     environment new_resource.environment
     notifies :run, "execute[set owner on #{new_resource.path}]"
@@ -77,10 +79,12 @@ action :install do
 
   # Add to path for interactive bash sessions
   template "/etc/profile.d/#{new_resource.name}.sh" do
+    cookbook "ark"
     source "add_to_path.sh.erb"
     owner "root"
     group "root"
     mode "0755"
+    cookbook "ark"
     variables( :directory => "#{new_resource.path}/bin" )
     only_if { new_resource.append_env_path }
   end
@@ -91,7 +95,7 @@ action :install do
     block do
       ENV['PATH'] = bin_path + ':' + ENV['PATH']
     end
-    only_if{ ENV['PATH'].scan(bin_path).empty? }
+    only_if{ new_resource.append_env_path and ENV['PATH'].scan(bin_path).empty? }
   end
 end
 
@@ -117,8 +121,9 @@ action :put do
   end
 
   # unpack based on file extension
+  _unpack_command = unpack_command
   execute "unpack #{new_resource.release_file}" do
-    command unpack_command
+    command _unpack_command
     cwd new_resource.path
     environment new_resource.environment
     notifies :run, "execute[set owner on #{new_resource.path}]"
@@ -154,8 +159,9 @@ action :dump do
   end
 
   # unpack based on file extension
+  _dump_command = dump_command
   execute "unpack #{new_resource.release_file}" do
-    command dump_command
+    command _dump_command
     cwd new_resource.path
     environment new_resource.environment
     notifies :run, "execute[set owner on #{new_resource.path}]"
@@ -190,9 +196,11 @@ action :cherry_pick do
     notifies :run, "execute[cherry_pick #{new_resource.creates} from #{new_resource.release_file}]"
   end
 
+  _unpack_type = unpack_type
+  _cherry_pick_command = cherry_pick_command
   execute "cherry_pick #{new_resource.creates} from #{new_resource.release_file}" do
-    Chef::Log.debug("DEBUG: unpack_type: #{unpack_type}")
-    command cherry_pick_command
+    Chef::Log.debug("DEBUG: unpack_type: #{_unpack_type}")
+    command _cherry_pick_command
     creates "#{new_resource.path}/#{new_resource.creates}"
     notifies :run, "execute[set owner on #{new_resource.path}]"
     action :nothing
@@ -227,8 +235,9 @@ action :install_with_make do
   end
 
   # unpack based on file extension
+  _unpack_command = unpack_command
   execute "unpack #{new_resource.release_file}" do
-    command unpack_command
+    command _unpack_command
     cwd new_resource.path
     environment new_resource.environment
     notifies :run, "execute[autogen #{new_resource.path}]"
@@ -294,8 +303,9 @@ action :configure do
   end
 
   # unpack based on file extension
+  _unpack_command = unpack_command
   execute "unpack #{new_resource.release_file}" do
-    command unpack_command
+    command _unpack_command
     cwd new_resource.path
     environment new_resource.environment
     notifies :run, "execute[autogen #{new_resource.path}]"
