@@ -3,7 +3,7 @@
     "description": "Role for jenkins build server", 
     "run_list": [
 	"role[base]",
-        "recipe[java]",
+	"recipe[java::openjdk]", 
         "recipe[apache2]",
         "recipe[jenkins]",
         "recipe[git]",
@@ -20,6 +20,10 @@
 	"maven": {
 	    "repository_root": "/var/lib/jenkins",
 	    "version": "3"
+	},
+	"java": {
+	    "jdk_version": "7"
+	    "remove_deprecated_packages": "true"
 	},
 	"hostname": {
 	    "fqdn": "jenkins.vm"
