@@ -20,7 +20,9 @@ Vagrant.configure("2") do |config|
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
-    jenkins.vm.network "private_network", ip: "192.168.1.10"
+    jenkins.vm.network :forwarded_port, guest: 80, host: 9000
+    jenkins.vm.network :forwarded_port, guest: 8080, host: 9090
+    jenkins.vm.network :forwarded_port, guest: 22, host: 9022
 
     jenkins.vm.provision :chef_client do |chef|
       chef.chef_server_url = "https://api.opscode.com/organizations/oe-test"
