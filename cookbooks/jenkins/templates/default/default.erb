@@ -13,13 +13,13 @@ JAVA=/usr/bin/java
 PIDFILE=/var/run/jenkins/jenkins.pid
 
 # user id to be invoked as (otherwise will run as root; not wise!)
-JENKINS_USER=<%= node.jenkins.server.user %>
+JENKINS_USER=<%= @user %>
 
 # location of the jenkins war file
 JENKINS_WAR=/usr/share/jenkins/jenkins.war
 
 # jenkins home location
-JENKINS_HOME=<%= node.jenkins.server.home %>
+JENKINS_HOME=<%= @home %>
 
 # set this to false if you don't want Hudson to run by itself
 # in this set up, you are expected to provide a servlet container
@@ -27,7 +27,7 @@ JENKINS_HOME=<%= node.jenkins.server.home %>
 RUN_STANDALONE=true
 
 # log location.  this may be a syslog facility.priority
-JENKINS_LOG=/var/log/jenkins/$NAME.log
+JENKINS_LOG=<%= @log_dir %>/$NAME.log
 #HUDSON_LOG=daemon.info
 
 # OS LIMITS SETUP
@@ -38,11 +38,13 @@ JENKINS_LOG=/var/log/jenkins/$NAME.log
 MAXOPENFILES=8192
 
 # port for HTTP connector (default 8080; disable with -1)
-HTTP_HOST=<%= node.jenkins.server.host %>
-HTTP_PORT=<%= node.jenkins.server.port %>
+HTTP_PORT=<%= @port %>
 
 # port for AJP connector (disabled by default)
 AJP_PORT=-1
+
+# servlet context, important if you want to use apache proxying
+PREFIX=/jenkins
 
 # arguments to pass to jenkins.
 # --javahome=$JAVA_HOME
@@ -50,6 +52,8 @@ AJP_PORT=-1
 # --httpsPort=$HTTP_PORT
 # --ajp13Port=$AJP_PORT
 # --argumentsRealm.passwd.$ADMIN_USER=[password]
-# --argumentsRealm.$ADMIN_USER=admin
+# --argumentsRealm.roles.$ADMIN_USER=admin
 # --webroot=~/.jenkins/war
-JENKINS_ARGS="--webroot=/var/run/jenkins/war --httpListenAddress=$HTTP_HOST --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT"
+# --prefix=$PREFIX
+
+JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT"

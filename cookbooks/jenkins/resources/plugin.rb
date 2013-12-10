@@ -1,9 +1,8 @@
 #
-# Author:: Guilhem Lettron <guilhem.lettron@youscribe.com>
 # Cookbook Name:: jenkins
-# Recipe:: default
+# Resource:: plugin
 #
-# Copyright 2013, Youscribe
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,3 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+actions :install, :remove
+default_action :install
+
+attribute :version, :kind_of => String
+attribute :url, :kind_of => String
+
+# If url isn't specified, a default URL based on the plugin name and version is returned
+def url(arg = nil)
+  if arg.nil? && @url.nil?
+    "#{node['jenkins']['mirror']}/plugins/#{name}/#{version}/#{name}.hpi"
+  else
+    set_or_return(:url, arg, :kind_of => String)
+  end
+end

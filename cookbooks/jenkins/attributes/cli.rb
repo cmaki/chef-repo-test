@@ -1,9 +1,13 @@
 #
-# Author:: Guilhem Lettron <guilhem.lettron@youscribe.com>
 # Cookbook Name:: jenkins
-# Recipe:: default
+# Attributes:: cli
 #
-# Copyright 2013, Youscribe
+# Author:: Doug MacEachern <dougm@vmware.com>
+# Author:: Fletcher Nichol <fnichol@nichol.ca>
+# Author:: Seth Chisamore <schisamo@opscode.com>
+#
+# Copyright 2010, VMware, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +20,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+default['jenkins']['cli']['java_params'] = nil
+default['jenkins']['cli']['username'] = nil
+default['jenkins']['cli']['password'] = nil
+default['jenkins']['cli']['password_file'] = nil
