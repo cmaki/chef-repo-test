@@ -3,6 +3,42 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v1.15.4
+-------
+[COOK-4210] - remove unneeded run_command to prevent zombie processes
+
+
+v1.15.2
+-------
+[CHEF-4210] remove unneeded run_command to prevent zombie processes
+
+
+v1.15.0
+-------
+### Bug
+- Fixing version number. Accidently released at 0.15.x instead of 1.15.x
+
+
+v0.15.2
+-------
+### FIX
+- [COOK-3908] - Fixing JAVA_HOME on Ubuntu 10.04
+
+
+v1.14.0
+-------
+### Bug
+- **[COOK-3704](https://tickets.opscode.com/browse/COOK-3704)** - Fix alternatives when the package is already installed
+- **[COOK-3668](https://tickets.opscode.com/browse/COOK-3668)** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
+- **[COOK-3569](https://tickets.opscode.com/browse/COOK-3569)** - Fix bad checksum length
+- **[COOK-3541](https://tickets.opscode.com/browse/COOK-3541)** - Fix an issue where Java cookbook installs both JDK 6 and JDK 7 when JDK 7 is specified
+- **[COOK-3518](https://tickets.opscode.com/browse/COOK-3518)** - Allow Windoes recipe to download from signed S3 url
+- **[COOK-2996](https://tickets.opscode.com/browse/COOK-2996)** - Fix a failure on Centos 6.4 and Oracle JDK 7
+
+### Improvement
+- **[COOK-2793](https://tickets.opscode.com/browse/COOK-2793)** - Improve Windows support
+
+
 v1.13.0
 -------
 ### Bug
