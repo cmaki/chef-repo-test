@@ -3,18 +3,10 @@
     "description": "Role for jenkins build server", 
     "run_list": [
 	"role[base]",
-	"recipe[java::openjdk]", 
+	"recipe[java::openjdk]",
         "recipe[apache2]",
-        "recipe[jenkins]",
-        "recipe[git]",
-        "recipe[ark]",
-        "recipe[maven]",
-        "recipe[jenkins::proxy_apache2]",
-	"recipe[hostname]",
-	"recipe[postgresql::server]",
-	"recipe[gradle]", 
-	"recipe[android-sdk]"
-
+        "recipe[jenkins::server]",
+        "recipe[git]"
     ],
     "override_attributes": {
 	"maven": {
@@ -23,10 +15,14 @@
 	},
 	"java": {
 	    "jdk_version": "7"
-	    "remove_deprecated_packages": "true"
 	},
 	"hostname": {
 	    "fqdn": "jenkins.vm"
+	},
+	"jenkins": {
+	    "http_proxy": {
+		"variant": "apache2"
+	    }
 	},
 	"postgresql": {
 	    "password": {

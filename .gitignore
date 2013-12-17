@@ -3,3 +3,12 @@
 .chef
 g
 Berksfile.lock
+*.txt
+lp2-mobile-server-config.pdf 
+history
+images-vagrant
+sources.list
+VirtualBox
+f
+myRepo
+
