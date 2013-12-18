@@ -9,12 +9,14 @@
         "recipe[git]"
     ],
     "override_attributes": {
-	"maven": {
-	    "repository_root": "/var/lib/jenkins",
-	    "version": "3"
-	},
 	"java": {
 	    "jdk_version": "7"
+	},
+	"maven": {
+	    "3": {
+		"version": "3.1.1",
+		"checksum": "077ed466455991d5abb4748a1d022e2d2a54dc4d557c723ecbacdc857c61d51b"
+	    }
 	},
 	"hostname": {
 	    "fqdn": "jenkins.vm"
@@ -28,6 +30,9 @@
 	    "password": {
 		"postgres": "maki"
 	    }
+	},
+	"npt": {
+	    "is_server": true
 	}
     }
 
