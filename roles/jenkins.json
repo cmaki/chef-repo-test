@@ -3,14 +3,20 @@
     "description": "Role for jenkins build server", 
     "run_list": [
 	"role[base]",
-	"recipe[java::openjdk]",
         "recipe[apache2]",
+	"recipe[java::openjdk]",
+	"recipe[maven]", 
         "recipe[jenkins::server]",
         "recipe[git]"
+
     ],
     "override_attributes": {
 	"java": {
-	    "jdk_version": "7"
+	    "jdk_version": "7",
+	    "install_flavor": "oracle",
+	    "oracle": {
+		"accept_oracle_download_terms": true
+	    }
 	},
 	"maven": {
 	    "3": {
